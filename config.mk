@@ -1,5 +1,5 @@
 # See LICENSE file for copyright and license details
-VERSION = 1.0.1-dev0
+VERSION = 1.0.1
 PREFIX := /usr/local
 MANPATH := ${PREFIX}/man
 
