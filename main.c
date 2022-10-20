@@ -68,6 +68,22 @@ free_request(struct cgi_req *req)
 	free(req);
 }
 
+void
+internal_error()
+{
+	puts("Content-Type: text/plain; charset=utf-8");
+	puts("Status: 500 Internal Server Error\n");
+	puts("Internal Server Error");
+}
+
+void
+bad_request(char *reason)
+{
+	puts("Content-Type: text/plain; charset=utf-8");
+	puts("Status: 400 Bad Request\n");
+	printf("Bad Request - %s\n", reason);
+}
+
 struct cgi_req *
 parse_request()
 {
@@ -77,7 +93,9 @@ parse_request()
 	size_t pnum = 0;
 
 	if ((req = malloc(sizeof(struct cgi_req))) == NULL) {
-		err(errno, "malloc");
+		warn("malloc");
+		internal_error();
+		return NULL;
 	}
 	memset(req, 0, sizeof(struct cgi_req));
 
@@ -86,10 +104,12 @@ parse_request()
 	}
 	if ((req->request_method = getenv("REQUEST_METHOD")) == NULL) {
 		warnx("REQUEST_METHOD not found in environment");
+		internal_error();
 		goto reqerror;
 	}
 	if ((query_string = getenv("QUERY_STRING")) == NULL) {
 		warnx("QUERY_STRING not found in environment");
+		internal_error();
 		goto reqerror;
 	}
 
@@ -97,11 +117,15 @@ parse_request()
 		if ((req->query_params =
 				realloc(req->query_params, sizeof(struct query_param) * (pnum+1)))
 				== NULL) {
-			err(errno, "realloc");
+			warn("realloc");
+			internal_error();
+			goto reqerror;
 		}
 		req->query_params[pnum].key = qkey;
 		if ((req->query_params[pnum].value = strtok(NULL, ";")) == NULL) {
-			errx(1, "");
+			warnx("failed to parse QUERY_STRING");
+			internal_error();
+			goto reqerror;
 		}
 		pnum += 1;
 	}
@@ -138,13 +162,16 @@ handl(struct cgi_req *req, struct shrtfile *shrt)
 	}
 
 	if (strcmp(req->path_info, "") == 0 && strcmp(barerdr, "") != 0) {
+		puts("Content-Type: text/plain; charset=utf-8");
 		puts("Status: 302 Found");
 		printf("Location: %s\n\n", barerdr);
+		puts("Redirecting");
 		return;
 	}
 
 	if (index(req->path_info, '/') == NULL) {
 		if ((val = shrtfile_get(shrt, req->path_info)) != NULL) {
+			puts("Content-Type: text/plain; charset=utf-8");
 			puts("Status: 301 Moved Permanently");
 			printf("Location: %s\n\n", val);
 			puts("Redirecting");
@@ -200,12 +227,17 @@ main(int argc, char **argv)
 
 	struct shrtfile *shrt = shrtfile_read(dbpath);
 	if (NULL == shrt) {
-		err(EX_SHRTFILE, "db error");
+		warnx("db error");
+		internal_error();
+		return EX_SHRTFILE;
 	}
 
 	if ((req = parse_request()) != NULL) {
 		handl(req, shrt);
 		free_request(req);
+	} else {
+		warnx("failed to parse request");
+		internal_error();
 	}
 	shrtfile_free(shrt);
 }
