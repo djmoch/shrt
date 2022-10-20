@@ -10,14 +10,9 @@
 #include <sys/types.h>
 #include <unistd.h>
 
+#include "config.h"
 #include "shrtfile.h"
 
-static const char *dbpath = "shrt.db";
-static const char *srvname = "djmo.ch";
-static const char *scmtype = "git";
-static const char *suffix = ".git";
-static const char *rdrname = "git://git.danielmoch.com";
-static const char *barerdr = "https://www.danielmoch.com";
 static char *empty_path = "";
 
 struct query_param
