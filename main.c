@@ -195,7 +195,7 @@ main(int argc, char **argv)
 
 #ifdef __OpenBSD__
 	unveil(dbpath, "r");
-	pledge("stdio cpath wpath rpath proc", "");
+	pledge("stdio rpath", "");
 #endif
 
 	struct shrtfile *shrt = shrtfile_read(dbpath);
