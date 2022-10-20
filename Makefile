@@ -32,7 +32,10 @@ dist:
 	cp -r ${DIST_SRC} shrt-${VERSION}
 	tar -cf - shrt-${VERSION} | gzip > shrt-${VERSION}.tar.gz
 
+test: shrt
+	sh test/do_test.sh
+
 distclean:
 	rm -rf shrt-*
 
-.PHONY: all clean install uninstall dist distclean
+.PHONY: all clean install uninstall dist distclean test

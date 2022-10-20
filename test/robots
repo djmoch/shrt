@@ -1,0 +1,5 @@
+export REQUEST_METHOD=GET
+export PATH_INFO=robots.txt
+export QUERY_STRING=''
+
+../shrt | grep '# Welcome to Shrt' >/dev/null 2>&1

@@ -1,0 +1,5 @@
+export REQUEST_METHOD=GET
+export PATH_INFO=gpg
+export QUERY_STRING=''
+
+../shrt | grep 'https://www.danielmoch.com/static/gpg.asc' >/dev/null 2>&1
