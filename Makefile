@@ -10,6 +10,8 @@ shrt: ${OBJ}
 
 shrt.o shrtfile.o: shrtfile.h
 
+shrt.o: config.h
+
 .c.o:
 	${CC} ${CFLAGS} ${CPPFLAGS} -o $@ $<
 
