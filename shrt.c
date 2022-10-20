@@ -109,7 +109,8 @@ parse_request()
 		goto reqerror;
 	}
 
-	while ((qkey = strtok(query_string, "=")) != NULL) {
+	qkey = strtok(query_string, "=");
+	while (qkey != NULL) {
 		if ((req->query_params =
 				realloc(req->query_params, sizeof(struct query_param) * (pnum+1)))
 				== NULL) {
@@ -118,12 +119,14 @@ parse_request()
 			goto reqerror;
 		}
 		req->query_params[pnum].key = qkey;
-		if ((req->query_params[pnum].value = strtok(NULL, ";")) == NULL) {
+		if ((qkey = strtok(NULL, ";")) == NULL) {
 			warnx("failed to parse QUERY_STRING");
 			internal_error();
 			goto reqerror;
 		}
+		req->query_params[pnum].value = qkey;
 		pnum += 1;
+		qkey = strtok(NULL, "=");
 	}
 
 	return req;

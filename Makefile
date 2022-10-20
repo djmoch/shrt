@@ -21,7 +21,7 @@ clean:
 install: shrt
 	install -Dm755 shrt ${DESTDIR}${PREFIX}/bin/shrt
 	install -Dm644 shrt.1 ${DESTDIR}${MANPATH}/man1/shrt.1
-	install -Dm644 shrt.1 ${DESTDIR}${MANPATH}/man5/shrtfile.5
+	install -Dm644 shrtfile.5 ${DESTDIR}${MANPATH}/man5/shrtfile.5
 
 uninstall:
 	rm -f ${DESTDIR}${PREFIX}/bin/shrt
