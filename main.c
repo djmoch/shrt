@@ -216,7 +216,7 @@ main(int argc, char **argv)
 		case 'v':
 			print_version(argv[0]);
 		default:
-			fprintf(stderr, "%s: unknown option -- %d\n", basename(argv[0]), opt);
+			fprintf(stderr, "%s: unknown option -- %c\n", basename(argv[0]), opt);
 			usage(argv[0], EX_ARGS);
 		}
 	}
