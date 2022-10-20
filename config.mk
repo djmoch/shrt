@@ -3,7 +3,7 @@ PREFIX := /usr/local
 MANPATH := ${PREFIX}/man
 
 SRC = \
-	main.c \
+	shrt.c \
 	shrtfile.c
 OBJ = ${SRC:c=o}
 DIST_SRC = ${SRC} Makefile config.mk shrt.1 shrtfile.5 README LICENSE

@@ -8,7 +8,7 @@ all: shrt
 shrt: ${OBJ}
 	${CC} ${LDFLAGS} -o shrt ${OBJ}
 
-main.o shrtfile.o: shrtfile.h
+shrt.o shrtfile.o: shrtfile.h
 
 .c.o:
 	${CC} ${CFLAGS} ${CPPFLAGS} -o $@ $<
