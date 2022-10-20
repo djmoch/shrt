@@ -119,7 +119,10 @@ handl(struct cgi_req *req, struct shrtfile *shrt)
 	char *val;
 
 	if (strcasecmp(req->request_method, "GET") != 0) {
-		warnx("request method not allowed");
+		puts("Content-Type: text/plain; charset=utf-8");
+		puts("Status: 405 Method Not Allowed\n");
+		puts("Method not allowed");
+		return;
 	}
 
 	if (req->path_info[0] == '/') {
@@ -135,12 +138,14 @@ handl(struct cgi_req *req, struct shrtfile *shrt)
 	}
 
 	if (strcmp(req->path_info, "") == 0 && strcmp(barerdr, "") != 0) {
+		puts("Status: 302 Found");
 		printf("Location: %s\n\n", barerdr);
 		return;
 	}
 
 	if (index(req->path_info, '/') == NULL) {
 		if ((val = shrtfile_get(shrt, req->path_info)) != NULL) {
+			puts("Status: 301 Moved Permanently");
 			printf("Location: %s\n\n", val);
 			puts("Redirecting");
 			return;
