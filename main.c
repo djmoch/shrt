@@ -1,6 +1,7 @@
 /* See LICENSE file for copyright and license details */
 #include <err.h>
 #include <errno.h>
+#include <libgen.h>
 #include <stdarg.h>
 #include <stdint.h>
 #include <stdio.h>
@@ -39,7 +40,7 @@ enum
 };
 
 static void
-usage(const char *arg0, const int rv)
+usage(char *arg0, const int rv)
 {
 	FILE *fp;
 	if (rv) {
@@ -48,14 +49,14 @@ usage(const char *arg0, const int rv)
 		fp = stdout;
 	}
 
-	fprintf(fp, "usage: %s [-hv]\n", arg0);
+	fprintf(fp, "usage: %s [-hv]\n", basename(arg0));
 	exit(rv);
 }
 
 static void
-print_version(const char *arg0)
+print_version(char *arg0)
 {
-	printf("%s version %s\n", arg0, VERSION);
+	printf("%s version %s\n", basename(arg0), VERSION);
 	exit(EXIT_SUCCESS);
 }
 
@@ -215,7 +216,7 @@ main(int argc, char **argv)
 		case 'v':
 			print_version(argv[0]);
 		default:
-			fprintf(stderr, "%s: unknown option -- %d\n", argv[0], opt);
+			fprintf(stderr, "%s: unknown option -- %d\n", basename(argv[0]), opt);
 			usage(argv[0], EX_ARGS);
 		}
 	}
