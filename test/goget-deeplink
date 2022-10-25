@@ -1,0 +1,7 @@
+set -e
+export REQUEST_METHOD=GET
+export PATH_INFO=go-shrt/cmd/shrt
+export QUERY_STRING='go-get=1'
+
+../shrt | grep 'godoc.org/djmo.ch/go-shrt/cmd/shrt'
+../shrt | grep 'git.danielmoch.com/go-shrt.git"'

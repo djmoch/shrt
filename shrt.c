@@ -178,7 +178,8 @@ handl(struct cgi_req *req, struct shrtfile *shrt)
 		}
 	}
 
-	val = strtok(req->path_info, "/");
+	val = strdup(req->path_info);
+	val = strtok(val, "/");
 	puts("Content-Type: text/html; charset=utf-8\n");
 	puts("<!DOCTYPE html>");
 	puts("<html>");
@@ -187,13 +188,14 @@ handl(struct cgi_req *req, struct shrtfile *shrt)
 	printf("<meta name=\"go-import\" content=\"%s/%s %s %s/%s%s\">\n",
 		srvname, val, scmtype, rdrname, val, suffix);
 	printf("<meta http-equiv=\"refresh\" content=\"0; url=https://godoc.org/%s/%s\">\n",
-		srvname, val);
+		srvname, req->path_info);
 	puts("</head>");
 	puts("<body>");
 	printf("Redirecting to docs at <a href=\"https://godoc.org/%s/%s\">godoc.org/%s/%s</a>...\n",
-		srvname, val, srvname, val);
+		srvname, req->path_info, srvname, req->path_info);
 	puts("</body>");
 	puts("</html>");
+	free(val);
 	return;
 }
 
