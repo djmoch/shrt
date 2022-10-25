@@ -2,4 +2,4 @@ export REQUEST_METHOD=PUT
 export PATH_INFO=''
 export QUERY_STRING=''
 
-../shrt | grep '405 Method Not Allowed' >/dev/null 2>&1
+../shrt | grep '405 Method Not Allowed'

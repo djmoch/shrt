@@ -2,4 +2,4 @@ export REQUEST_METHOD=GET
 export PATH_INFO=''
 export QUERY_STRING=''
 
-../shrt | grep 'Location: https://www.danielmoch.com' >/dev/null 2>&1
+../shrt | grep 'Location: https://www.danielmoch.com'

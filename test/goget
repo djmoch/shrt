@@ -2,4 +2,4 @@ export REQUEST_METHOD=GET
 export PATH_INFO=go-shrt
 export QUERY_STRING='go-get=1'
 
-../shrt | grep 'godoc.org/djmo.ch/go-shrt' >/dev/null 2>&1
+../shrt | grep 'godoc.org/djmo.ch/go-shrt'

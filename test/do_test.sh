@@ -3,12 +3,12 @@
 cd $(dirname $0)
 unset PATH_INFO REQUEST_METHOD QUERY_STRING
 
+failed=0
 for test_file in *
 do
-	failed=0
 	[ "$test_file" = "$(basename $0)" -o "$test_file" = "shrt.db" ] && continue
 	printf '%s ... ' $test_file
-	if sh $test_file
+	if sh $test_file >/dev/null 2>&1
 	then
 		echo PASSED
 	else
