@@ -21,7 +21,7 @@ DIST_SRC = \
 	README \
 	LICENSE
 
-CFLAGS = -c -g -O0 -std=c99
+CFLAGS = -c -g -O0 -std=c99 -Wall -Wextra -Werror -pedantic-errors
 CPPFLAGS = -DVERSION=\"${VERSION}\" -D_BSD_SOURCE
 LDFLAGS = -pie -static
 CC = cc

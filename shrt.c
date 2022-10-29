@@ -213,8 +213,10 @@ main(int argc, char **argv)
 		switch (opt) {
 		case 'h':
 			usage(argv[0], EXIT_SUCCESS);
+			break;
 		case 'v':
 			print_version(argv[0]);
+			break;
 		default:
 			fprintf(stderr, "%s: unknown option -- %c\n", basename(argv[0]), opt);
 			usage(argv[0], EX_ARGS);
