@@ -23,5 +23,5 @@ DIST_SRC = \
 
 CFLAGS = -c -g -O0 -std=c99
 CPPFLAGS = -DVERSION=\"${VERSION}\" -D_BSD_SOURCE
-LDFLAGS = -static
+LDFLAGS = -pie -static
 CC = cc
