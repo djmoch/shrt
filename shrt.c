@@ -65,7 +65,7 @@ free_request(struct cgi_req *req)
 }
 
 void
-internal_error()
+internal_error(void)
 {
 	puts("Content-Type: text/plain; charset=utf-8");
 	puts("Status: 500 Internal Server Error\n");
@@ -81,7 +81,7 @@ bad_request(char *reason)
 }
 
 struct cgi_req *
-parse_request()
+parse_request(void)
 {
 	struct cgi_req *req;
 	char *query_string;
